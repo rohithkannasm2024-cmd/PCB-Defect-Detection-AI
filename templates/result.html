@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Prediction Result</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Detection Result</h1>
+
+<img src="{{ url_for('static', filename=image) }}">
+
+<br><br>
+
+<a href="/">⬅ Detect Another Image</a>
+
+</div>
+
+</body>
+
+</html>

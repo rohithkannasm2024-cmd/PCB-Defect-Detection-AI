@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Detection Dashboard</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+<div class="dashboard">
+
+<h1>Inspection Report</h1>
+
+<div class="cards">
+
+<div class="card">
+
+<h2>Original</h2>
+
+<img src="{{ url_for('static',filename='uploads/'+filename) }}">
+
+</div>
+
+<div class="card">
+
+<h2>Detected</h2>
+
+<img src="{{ url_for('static',filename=image) }}">
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="box">
+
+<h3>Detected Defect</h3>
+
+<p>{{ defect }}</p>
+
+</div>
+
+<div class="box">
+
+<h3>Confidence</h3>
+
+<p>{{ confidence }}</p>
+
+</div>
+
+<div class="box">
+
+<h3>Objects</h3>
+
+<p>{{ count }}</p>
+
+</div>
+
+</div>
+
+<a href="/">⬅ Scan Another PCB</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+# Virtual Environment
+venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# YOLO Training Outputs
+runs/
+
+# Uploaded Images
+static/uploads/
+static/results/
+
+# Environment Variables
+.env
+
+# VS Code Settings
+.vscode/
+
+# System Files
+.DS_Store
+Thumbs.db

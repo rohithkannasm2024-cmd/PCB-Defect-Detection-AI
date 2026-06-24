@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI PCB Defect Detection</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+<div class="glass">
+
+<img
+src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200"
+class="banner"
+alt="PCB Technology">
+<h1>AI PCB Defect Detection</h1>
+
+<p>Industrial Quality Inspection using YOLOv8</p>
+
+<form action="/predict"
+method="POST"
+enctype="multipart/form-data"
+id="uploadForm">
+
+<div class="drop-zone">
+
+<input type="file"
+name="image"
+required>
+
+</div>
+
+<button type="submit">
+
+🚀 Detect Defect
+
+</button>
+
+</form>
+
+<div id="loading">
+
+<div class="spinner"></div>
+
+<p>AI is analysing your PCB...</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+document.getElementById("uploadForm").onsubmit=function(){
+
+document.getElementById("loading").style.display="block";
+
+}
+
+</script>
+
+</body>
+
+</html>
