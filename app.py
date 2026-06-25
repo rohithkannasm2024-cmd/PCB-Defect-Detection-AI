@@ -4,6 +4,7 @@ import cv2
 import os
 import shutil
 import base64
+from flask import Response
 
 app = Flask(__name__)
 
@@ -11,6 +12,33 @@ app = Flask(__name__)
 # Load Trained YOLOv8 Model
 # ==========================================
 model = YOLO("runs/detect/pcb_defect/weights/best.pt")
+def generate_frames():
+
+    cap = cv2.VideoCapture(0)
+
+    while True:
+
+        success, frame = cap.read()
+
+        if not success:
+            break
+
+        results = model(frame)
+
+        annotated_frame = results[0].plot()
+
+        ret, buffer = cv2.imencode(".jpg", annotated_frame)
+
+        frame = buffer.tobytes()
+
+        yield (
+            b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n'
+            + frame +
+            b'\r\n'
+        )
+
+    cap.release()
 
 # ==========================================
 # Create Required Folders
@@ -24,16 +52,75 @@ os.makedirs(RESULT_FOLDER, exist_ok=True)
 # ==========================================
 # Home Page
 # ==========================================
+def generate_frames():
+
+    cap = cv2.VideoCapture(0)
+
+    while True:
+
+        success, frame = cap.read()
+
+        if not success:
+            break
+
+        results = model(frame)
+
+        annotated_frame = results[0].plot()
+
+        ret, buffer = cv2.imencode(".jpg", annotated_frame)
+
+        frame = buffer.tobytes()
+
+        yield (
+            b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n'
+            + frame +
+            b'\r\n'
+        )
+
+    cap.release()
 @app.route("/")
 def home():
     return render_template("index.html")
 # ==========================================
 # Webcam Page
 # ==========================================
+def generate_frames():
+
+    cap = cv2.VideoCapture(0)
+
+    while True:
+
+        success, frame = cap.read()
+
+        if not success:
+            break
+
+        results = model(frame)
+
+        annotated_frame = results[0].plot()
+
+        ret, buffer = cv2.imencode(".jpg", annotated_frame)
+
+        frame = buffer.tobytes()
+
+        yield (
+            b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n'
+            + frame +
+            b'\r\n'
+        )
+
+    cap.release()
 @app.route("/webcam")
 def webcam():
     return render_template("webcam.html")
 @app.route("/capture", methods=["POST"])
+@app.route("/snapshot")
+def snapshot():
+    return render_template("webcam.html")
+
+
 def capture():
 
     image_data = request.form["imageData"]
@@ -105,10 +192,36 @@ def capture():
 
 
 
-
 # ==========================================
 # Image Prediction
 # ==========================================
+def generate_frames():
+
+    cap = cv2.VideoCapture(0)
+
+    while True:
+
+        success, frame = cap.read()
+
+        if not success:
+            break
+
+        results = model(frame)
+
+        annotated_frame = results[0].plot()
+
+        ret, buffer = cv2.imencode(".jpg", annotated_frame)
+
+        frame = buffer.tobytes()
+
+        yield (
+            b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n'
+            + frame +
+            b'\r\n'
+        )
+
+    cap.release()
 @app.route("/predict", methods=["POST"])
 def predict():
 
@@ -238,6 +351,33 @@ def generate_frames():
 # ==========================================
 # Video Feed Route
 # ==========================================
+def generate_frames():
+
+    cap = cv2.VideoCapture(0)
+
+    while True:
+
+        success, frame = cap.read()
+
+        if not success:
+            break
+
+        results = model(frame)
+
+        annotated_frame = results[0].plot()
+
+        ret, buffer = cv2.imencode(".jpg", annotated_frame)
+
+        frame = buffer.tobytes()
+
+        yield (
+            b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n'
+            + frame +
+            b'\r\n'
+        )
+
+    cap.release()
 @app.route("/video_feed")
 def video_feed():
 
@@ -250,6 +390,10 @@ def video_feed():
 # ==========================================
 # Run Flask
 # ==========================================
+@app.route("/live")
+def live():
+    return render_template("live.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
 
