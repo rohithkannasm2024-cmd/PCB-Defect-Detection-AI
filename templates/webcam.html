@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Snapshot Detection</title>
+
+    <style>
+
+        body{
+            margin:0;
+            padding:0;
+            font-family:Arial, sans-serif;
+            background:#0f172a;
+            color:white;
+            text-align:center;
+        }
+
+        .container{
+            margin-top:30px;
+        }
+
+        h1{
+            font-size:40px;
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#cbd5e1;
+        }
+
+        video{
+            width:800px;
+            max-width:90%;
+            border-radius:15px;
+            border:4px solid #3b82f6;
+            margin-top:20px;
+            box-shadow:0 0 25px rgba(59,130,246,0.5);
+        }
+
+        .btn{
+            margin-top:25px;
+            padding:15px 35px;
+            border:none;
+            border-radius:10px;
+            background:#2563eb;
+            color:white;
+            font-size:20px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#1d4ed8;
+        }
+
+        .back{
+            display:inline-block;
+            margin-top:20px;
+            text-decoration:none;
+            color:white;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📸 PCB Snapshot Detection</h1>
+
+    <p>Position PCB in front of webcam and capture image for AI inspection</p>
+
+    <video id="video" autoplay playsinline></video>
+
+    <br>
+
+    <button class="btn" onclick="captureImage()">
+        Capture & Detect
+    </button>
+
+    <br>
+
+    <a href="/" class="back">
+        ⬅ Back to Dashboard
+    </a>
+
+</div>
+
+<form id="captureForm" method="POST" action="/capture">
+    <input type="hidden" name="imageData" id="imageData">
+</form>
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+
+const video = document.getElementById("video");
+
+navigator.mediaDevices.getUserMedia({
+    video:true
+})
+.then(function(stream){
+    video.srcObject = stream;
+})
+.catch(function(error){
+    alert("Camera access denied!");
+    console.log(error);
+});
+
+function captureImage(){
+
+    const canvas = document.getElementById("canvas");
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    const imageData = canvas.toDataURL("image/jpeg");
+
+    document.getElementById("imageData").value = imageData;
+
+    document.getElementById("captureForm").submit();
+}
+
+</script>
+
+</body>
+</html>

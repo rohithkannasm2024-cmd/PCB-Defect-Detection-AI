@@ -1,72 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI PCB Defect Detection</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet"
-href="{{ url_for('static',filename='css/style.css') }}">
+    <title>AI PCB Defect Detection</title>
 
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-<div class="overlay">
+<div class="container">
 
-<div class="glass">
+    <div class="glass-card">
 
-<img
-src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200"
-class="banner"
-alt="PCB Technology">
-<h1>AI PCB Defect Detection</h1>
+        <div class="header">
+            <h1>🤖 AI PCB Defect Detection</h1>
 
-<p>Industrial Quality Inspection using YOLOv8</p>
+            <p>
+                Upload a PCB image and let YOLOv8 detect
+                manufacturing defects automatically.
+            </p>
+        </div>
 
-<form action="/predict"
-method="POST"
-enctype="multipart/form-data"
-id="uploadForm">
+        <form action="/predict"
+              method="POST"
+              enctype="multipart/form-data">
 
-<div class="drop-zone">
+            <div class="upload-box">
 
-<input type="file"
-name="image"
-required>
+                <h2>Upload PCB Image</h2>
+
+                <br>
+
+                <input
+                    type="file"
+                    name="image"
+                    required>
+
+            </div>
+
+            <button
+                type="submit"
+                class="detect-btn">
+
+                🔍 Detect Defects
+
+            </button>
+
+        </form>
+
+        <a href="/webcam">
+            <button class="snapshot-btn">
+                🎥 Live Webcam Detection
+            </button>
+        </a>
+
+        <a href="/snapshot">
+            <button class="snapshot-btn">
+                📸 Snapshot Detection
+            </button>
+        </a>
+
+        <div class="features">
+
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast</h3>
+                <p>Real-time YOLOv8 detection</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <h3>Accurate</h3>
+                <p>High precision defect detection</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Smart</h3>
+                <p>AI powered PCB inspection</p>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
-
-<button type="submit">
-
-🚀 Detect Defect
-
-</button>
-
-</form>
-
-<div id="loading">
-
-<div class="spinner"></div>
-
-<p>AI is analysing your PCB...</p>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-document.getElementById("uploadForm").onsubmit=function(){
-
-document.getElementById("loading").style.display="block";
-
-}
-
-</script>
 
 </body>
-
 </html>
+

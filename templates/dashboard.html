@@ -1,77 +1,72 @@
 <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI PCB Inspection Report</title>
 
-<title>Detection Dashboard</title>
-
-<link rel="stylesheet"
-href="{{ url_for('static',filename='css/style.css') }}">
-
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-<div class="overlay">
+<div class="report-container">
 
-<div class="dashboard">
+    <h1>🤖 AI PCB Inspection Report</h1>
+    <p class="subtitle">
+        YOLOv8 Powered PCB Defect Detection System
+    </p>
 
-<h1>Inspection Report</h1>
+    <div class="image-section">
 
-<div class="cards">
+        <div class="image-card">
+            <h2>📷 Original Image</h2>
 
-<div class="card">
+            <img src="{{ url_for('static',
+            filename='uploads/' + filename) }}"
+            alt="Original PCB">
+        </div>
 
-<h2>Original</h2>
+        <div class="image-card">
+            <h2>🔍 Detected Result</h2>
 
-<img src="{{ url_for('static',filename='uploads/'+filename) }}">
+            <img src="{{ url_for('static',
+            filename=image) }}"
+            alt="Detected PCB">
+        </div>
 
-</div>
+    </div>
 
-<div class="card">
+    <div class="stats-container">
 
-<h2>Detected</h2>
+        <div class="stat-box">
+            <h3>Detected Defect</h3>
+            <p>{{ defect }}</p>
+        </div>
 
-<img src="{{ url_for('static',filename=image) }}">
+        <div class="stat-box">
+            <h3>Confidence</h3>
+            <p>{{ confidence }}</p>
+        </div>
 
-</div>
+        <div class="stat-box">
+            <h3>Total Objects</h3>
+            <p>{{ count }}</p>
+        </div>
 
-</div>
+    </div>
 
-<div class="stats">
 
-<div class="box">
-
-<h3>Detected Defect</h3>
-
-<p>{{ defect }}</p>
-
-</div>
-
-<div class="box">
-
-<h3>Confidence</h3>
-
-<p>{{ confidence }}</p>
-
-</div>
-
-<div class="box">
-
-<h3>Objects</h3>
-
-<p>{{ count }}</p>
-
-</div>
-
-</div>
-
-<a href="/">⬅ Scan Another PCB</a>
-
-</div>
+    <div style="text-align:center;">
+        <a href="/" class="btn">
+            🔄 Scan Another PCB
+        </a>
+    </div>
 
 </div>
 
 </body>
-
 </html>
